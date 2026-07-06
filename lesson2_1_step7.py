@@ -1,5 +1,5 @@
 """
-кликаем по checkboxes и radiobuttons (капча для роботов)
+поиск сокровища с помощью get_attribute
 """
 
 from selenium import webdriver
@@ -13,22 +13,24 @@ def calc(x):
 
 
 try:
-    link = "https://suninjuly.github.io/math.html"
+    link = "http://suninjuly.github.io/get_attribute.html"
     browser = webdriver.Chrome()
     browser.get(link)
 
     # поиск на странице числа для расчета
-    x_element = browser.find_element(By.ID, "input_value")
-    x = x_element.text
+    x_element = browser.find_element(By.ID, "treasure")
+    x = x_element.get_attribute("valuex")
     y = calc(x)
 
     # заполнение формы вычисленным значением
     ans = browser.find_element(By.ID, "answer")
     ans.send_keys(str(y))
 
+    # отметить чекбокс "I'm the robot"
     chbx = browser.find_element(By.ID, "robotCheckbox")
     chbx.click()
 
+    # выбрать радиобаттон "People rule"
     rdbtn = browser.find_element(By.ID, "robotsRule")
     rdbtn.click()
 
